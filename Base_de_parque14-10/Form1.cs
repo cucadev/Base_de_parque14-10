@@ -63,45 +63,51 @@ namespace Restaurant
             try
             {
                 // Obtén los valores de los cuadros de texto
-                string nombre = txtNombre.Text;
-                string apellido = txtApellido.Text;
-                string id = txtID.Text;
-                string sector = txtSector.Text;
-                string contacto = txtContacto.Text;
+                string incidente = txtIncidente.Text;
+                string empleado = txtEmpleado.Text;
+                string zona = txtZona.Text;
+                string tipo = txtTipo.Text;
+                string fecha = txtFecha.Text;
+                string inicio = txtInicio.Text;
+                string fin = txtFin.Text;
 
                 // Crea una instancia de la clase Persona con los valores
-                Persona nuevaPersona = new Persona(nombre, apellido, id, sector, contacto);
+                Monitoreo nuevoMonitoreo = new Monitoreo(incidente, empleado, zona, tipo, fecha, inicio, fin);
                 // Agrega la nueva Persona al DataGridView dgvPersonal
 
                 // Limpia los cuadros de texto después de agregar la Persona
-                txtNombre.Clear();
-                txtApellido.Clear();
-                txtID.Clear();
-                txtSector.Clear();
-                txtContacto.Clear();
+                txtIncidente.Clear();
+                txtEmpleado.Clear();
+                txtZona.Clear();
+                txtTipo.Clear();
+                txtFecha.Clear();
+                txtInicio.Clear();
+                txtFin.Clear();
 
                 // Cadena de conexión a la base de datos MySQL
-                string connectionString = "Server=localhost;Database=isft225;Uid=root;Pwd=";
+                string connectionString = "Server=localhost;Database=base_de_parque;Uid=root;Pwd=";
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
 
-                    string query = "INSERT INTO isft225 (Nombre, Apellido, ID, Sector, Contacto) VALUES (@Nombre, @Apellido, @ID, @Sector, @Contacto)";
+                    string query = "INSERT INTO monitoreo (Incidente, Empleado, Zona, Tipo, Fecha, Inicio, Fin) VALUES (@Incidente, @Empleado, @Zona, @Tipo, @Fecha, @Inicio, @Fin)";
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         // Agregar parámetros
-                        command.Parameters.AddWithValue("@Nombre", nuevaPersona.Nombre);
-                        command.Parameters.AddWithValue("@Apellido", nuevaPersona.Apellido);
-                        command.Parameters.AddWithValue("@ID", nuevaPersona.ID);
-                        command.Parameters.AddWithValue("@Sector", nuevaPersona.Sector);
-                        command.Parameters.AddWithValue("@Contacto", nuevaPersona.Contacto);
+                        command.Parameters.AddWithValue("@Incidente", nuevoMonitoreo.Incidente);
+                        command.Parameters.AddWithValue("@Empleado", nuevoMonitoreo.Empleado);
+                        command.Parameters.AddWithValue("@Zona", nuevoMonitoreo.Zona);
+                        command.Parameters.AddWithValue("@Tipo", nuevoMonitoreo.Tipo);
+                        command.Parameters.AddWithValue("@Fecha", nuevoMonitoreo.Fecha);
+                        command.Parameters.AddWithValue("@Incio", nuevoMonitoreo.Inicio);
+                        command.Parameters.AddWithValue("@Fin", nuevoMonitoreo.Fin);
 
                         // Ejecutar la consulta
                         int rowsAffected = command.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
                             MessageBox.Show("Datos guardados correctamente.");
-                            dgvPersonal.Rows.Add(nuevaPersona.Nombre, nuevaPersona.Apellido, nuevaPersona.ID, nuevaPersona.Sector, nuevaPersona.Contacto);
+                            dataGridView1.Rows.Add(nuevoMonitoreo.Incidente, nuevoMonitoreo.Empleado, nuevoMonitoreo.Zona, nuevoMonitoreo.Tipo, nuevoMonitoreo.Fecha, nuevoMonitoreo.Inicio, nuevoMonitoreo.Fin);
 
                         }
                         else
@@ -123,13 +129,13 @@ namespace Restaurant
             try
             {
                 // Cadena de conexión a la base de datos MySQL
-                string connectionString = "Server=localhost;Database=isft225;Uid=root;Pwd=";
+                string connectionString = "Server=localhost;Database=base_de_parque;Uid=root;Pwd=";
 
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
 
-                    string query = "SELECT Nombre, Apellido, ID, Sector, Contacto FROM isft225";
+                    string query = "SELECT Incidente, Empleado, Zona, Tipo, Fecha, Inicio, Fin FROM monitoreo";
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
@@ -138,7 +144,7 @@ namespace Restaurant
                             adapter.Fill(dataTable);
 
                             // Asignar el DataTable al DataGridView
-                            dgvPersonal.DataSource = dataTable;
+                            dataGridView1.DataSource = dataTable;
                         }
                     }
                 }
@@ -150,11 +156,11 @@ namespace Restaurant
         }
         private void btnEvento_Click(object sender, EventArgs e)
         {
-            Form1 frmEvento = new Form1();
+            Form2 frmEvento = new Form2();
             frmEvento.Show();
         }
 
-        private void dgvPersonal_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
@@ -163,12 +169,12 @@ namespace Restaurant
             try
             {
                 // Verificar si se hizo clic en una celda y no en la cabecera
-                if (dgvPersonal.SelectedCells.Count > 0)
+                if (dataGridView1.SelectedCells.Count > 0)
                 {
                     // Obtener el ID de la fila seleccionada (suponiendo que el nombre de la columna es "ID")
-                    string idToString = dgvPersonal.SelectedCells[0].OwningRow.Cells["ID"].Value.ToString();
+                    string idToString = dataGridView1.SelectedCells[0].OwningRow.Cells["ID"].Value.ToString();
                     int idToDelete = Convert.ToInt32(idToString);
-                    string connectionString = "Server=localhost;Database=isft225;Uid=root;Pwd=";
+                    string connectionString = "Server=localhost;Database=base_de_parque;Uid=root;Pwd=";
 
                     using (MySqlConnection connection = new MySqlConnection(connectionString))
                     {
