@@ -5,11 +5,14 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Base_de_parque14_10;
 using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
+using Mysqlx.Cursor;
 
 namespace Restaurant
 {
@@ -21,30 +24,36 @@ namespace Restaurant
             InitializeComponent();
             MostrarDatosEnGrilla();
         }
-        public class Persona
+        public class Monitoreo
         {
-            public string Nombre;
-            public string Apellido;
-            public string ID;
-            public string Sector;
-            public string Contacto;
+            public string Incidente;
+            public string Empleado;
+            public string Zona;
+            public string Tipo;
+            public string Fecha;
+            public string Inicio;
+            public string Fin;
 
             // Constructor de la clase
-            public Persona(string nombre, string apellido, string id, string sector, string contacto)
+            public Monitoreo(string incidente, string empleado, string zona, string tipo, string fecha, string inicio, string fin)
             {
-                Nombre = nombre;
-                Apellido = apellido;
-                ID = id;
-                Sector = sector;
-                Contacto = contacto;
+                Incidente = incidente;
+                Empleado = empleado;
+                Zona = zona;
+                Tipo = tipo;
+                Fecha = fecha;
+                Inicio = inicio;
+                Fin = fin;
             }
-            public Persona()
+            public Monitoreo()
             {
-                Nombre = "";
-                Apellido = "";
-                ID = "";
-                Sector = "";
-                Contacto = "";
+                Incidente = "";
+                Empleado = "";
+                Zona = "";
+                Tipo = "";
+                Fecha = "";
+                Inicio = "";
+                Fin = "";
             }
         }
 
