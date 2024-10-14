@@ -172,8 +172,8 @@ namespace Restaurant
                 if (dataGridView1.SelectedCells.Count > 0)
                 {
                     // Obtener el ID de la fila seleccionada (suponiendo que el nombre de la columna es "ID")
-                    string idToString = dataGridView1.SelectedCells[0].OwningRow.Cells["ID"].Value.ToString();
-                    int idToDelete = Convert.ToInt32(idToString);
+                    string IncidenteToString = dataGridView1.SelectedCells[0].OwningRow.Cells["Incidente"].Value.ToString();
+                    int IncidenteToDelete = Convert.ToInt32(IncidenteToString);
                     string connectionString = "Server=localhost;Database=base_de_parque;Uid=root;Pwd=";
 
                     using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -181,7 +181,7 @@ namespace Restaurant
                         connection.Open();
 
                         // Consulta SQL para eliminar la fila con el ID seleccionado
-                        string deleteQuery = $"DELETE FROM isft225 WHERE ID = {idToDelete}";
+                        string deleteQuery = $"DELETE FROM monitoreo WHERE Incidente = {IncidenteToDelete}";
                         using (MySqlCommand deleteCommand = new MySqlCommand(deleteQuery, connection))
                         {
                             int rowsAffected = deleteCommand.ExecuteNonQuery();
@@ -219,7 +219,7 @@ namespace Restaurant
 
         private void eventoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form1 frmEvento = new Form1();
+            Form2 frmEvento = new Form2();
             frmEvento.Show();
         }
 
@@ -228,38 +228,42 @@ namespace Restaurant
             try
             {
                 // Obtén los valores de los cuadros de texto
-                string nombre = txtNombre.Text;
-                string apellido = txtApellido.Text;
-                string id = txtID.Text;
-                string sector = txtSector.Text;
-                string contacto = txtContacto.Text;
+                string incidente = txtIncidente.Text;
+                string empleado = txtEmpleado.Text;
+                string zona = txtZona.Text;
+                string tipo = txtTipo.Text;
+                string fecha = txtFecha.Text;
+                string inicio = txtInicio.Text;
+                string fin = txtFin.Text;
 
                 // Verifica que el ID no esté vacío, ya que es necesario para realizar la actualización
-                if (string.IsNullOrWhiteSpace(id))
+                if (string.IsNullOrWhiteSpace(incidente))
                 {
-                    MessageBox.Show("El ID es necesario para actualizar los datos.");
+                    MessageBox.Show("El Incidente es necesario para actualizar los datos.");
                     return;
                 }
 
                 // Crea una instancia de la clase Persona con los valores
-                Persona personaActualizada = new Persona(nombre, apellido, id, sector, contacto);
+                Monitoreo monitoreoActualizado = new Monitoreo(incidente, empleado, zona, tipo, fecha, inicio, fin);
 
                 // Cadena de conexión a la base de datos MySQL
-                string connectionString = "Server=localhost;Database=isft225;Uid=root;Pwd=";
+                string connectionString = "Server=localhost;Database=base_de_parque;Uid=root;Pwd=";
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
 
                     // Consulta de actualización
-                    string query = "UPDATE isft225 SET Nombre = @Nombre, Apellido = @Apellido, Sector = @Sector, Contacto = @Contacto WHERE ID = @ID";
+                    string query = "UPDATE monitoreo SET Empleado = @Empleado, Zona = @Zona, Tipo = @Tipo, Fecha = @Fecha, Inicio = @Inicio, Fin = @Fin, WHERE Incidente = @Incidente";
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         // Agregar parámetros
-                        command.Parameters.AddWithValue("@Nombre", personaActualizada.Nombre);
-                        command.Parameters.AddWithValue("@Apellido", personaActualizada.Apellido);
-                        command.Parameters.AddWithValue("@Sector", personaActualizada.Sector);
-                        command.Parameters.AddWithValue("@Contacto", personaActualizada.Contacto);
-                        command.Parameters.AddWithValue("@ID", personaActualizada.ID);
+                        command.Parameters.AddWithValue("@Empleado", monitoreoActualizado.Empleado);
+                        command.Parameters.AddWithValue("@Zona", monitoreoActualizado.Zona);
+                        command.Parameters.AddWithValue("@Tipo", monitoreoActualizado.Tipo);
+                        command.Parameters.AddWithValue("@Fecha", monitoreoActualizado.Fecha);
+                        command.Parameters.AddWithValue("@Inicio", monitoreoActualizado.Inicio);
+                        command.Parameters.AddWithValue("@Fin", monitoreoActualizado.Fin);
+                        command.Parameters.AddWithValue("@Incidente", monitoreoActualizado.Incidente);
 
                         // Ejecutar la consulta
                         int rowsAffected = command.ExecuteNonQuery();
@@ -268,11 +272,13 @@ namespace Restaurant
                             MessageBox.Show("Datos actualizados correctamente.");
 
                             // Limpia los cuadros de texto después de actualizar los datos
-                            txtNombre.Clear();
-                            txtApellido.Clear();
-                            txtID.Clear();
-                            txtSector.Clear();
-                            txtContacto.Clear();
+                            txtIncidente.Clear();
+                            txtEmpleado.Clear();
+                            txtZona.Clear();
+                            txtTipo.Clear();
+                            txtFecha.Clear();
+                            txtInicio.Clear();
+                            txtFin.Clear();
                         }
                         else
                         {
