@@ -1,6 +1,6 @@
 ﻿namespace Restaurant
 {
-    partial class Form2
+    partial class Form1
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -258,7 +258,7 @@
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
             // 
-            // Form2
+            // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -282,7 +282,7 @@
             this.Controls.Add(this.lblEmpleado);
             this.Controls.Add(this.txtIncidente);
             this.Controls.Add(this.lblIncidente);
-            this.Name = "Form2";
+            this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

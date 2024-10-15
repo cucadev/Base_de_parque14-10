@@ -16,10 +16,9 @@ using Mysqlx.Cursor;
 
 namespace Restaurant
 {
-
-    public partial class Form2 : Form
+    public partial class Form1 : Form
     {
-        public Form2()
+        public Form1()
         {
             InitializeComponent();
             MostrarDatosEnGrilla();
@@ -99,7 +98,7 @@ namespace Restaurant
                         command.Parameters.AddWithValue("@Zona", nuevoMonitoreo.Zona);
                         command.Parameters.AddWithValue("@Tipo", nuevoMonitoreo.Tipo);
                         command.Parameters.AddWithValue("@Fecha", nuevoMonitoreo.Fecha);
-                        command.Parameters.AddWithValue("@Incio", nuevoMonitoreo.Inicio);
+                        command.Parameters.AddWithValue("@Inicio", nuevoMonitoreo.Inicio);
                         command.Parameters.AddWithValue("@Fin", nuevoMonitoreo.Fin);
 
                         // Ejecutar la consulta
@@ -121,7 +120,7 @@ namespace Restaurant
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-            //MostrarDatosEnGrilla();
+            MostrarDatosEnGrilla();
 
         }
         private void MostrarDatosEnGrilla()
@@ -156,7 +155,7 @@ namespace Restaurant
         }
         private void btnEvento_Click(object sender, EventArgs e)
         {
-            Form2 frmEvento = new Form2();
+            Form1 frmEvento = new Form1();
             frmEvento.Show();
         }
 
@@ -219,7 +218,7 @@ namespace Restaurant
 
         private void eventoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form2 frmEvento = new Form2();
+            Form1 frmEvento = new Form1();
             frmEvento.Show();
         }
 
@@ -253,7 +252,7 @@ namespace Restaurant
                     connection.Open();
 
                     // Consulta de actualización
-                    string query = "UPDATE monitoreo SET Empleado = @Empleado, Zona = @Zona, Tipo = @Tipo, Fecha = @Fecha, Inicio = @Inicio, Fin = @Fin, WHERE Incidente = @Incidente";
+                    string query = "UPDATE monitoreo SET Empleado = @Empleado, Zona = @Zona, Tipo = @Tipo, Fecha = @Fecha, Inicio = @Inicio, Fin = @Fin WHERE Incidente = @Incidente";
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         // Agregar parámetros
