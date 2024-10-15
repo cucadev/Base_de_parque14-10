@@ -180,7 +180,8 @@ namespace Base_de_parque14_10
                         connection.Open();
 
                         // Consulta SQL para eliminar la fila con el ID seleccionado
-                        string deleteQuery = $"DELETE FROM monitoreo WHERE Incidente = {IncidenteToDelete}";
+                        string incidenteToDelete = dataGridView1.SelectedCells[0].OwningRow.Cells["Incidente"].Value.ToString();
+                        string deleteQuery = "DELETE FROM monitoreo WHERE Incidente = @Incidente";
                         using (MySqlCommand deleteCommand = new MySqlCommand(deleteQuery, connection))
                         {
                             int rowsAffected = deleteCommand.ExecuteNonQuery();
@@ -287,7 +288,7 @@ namespace Base_de_parque14_10
                 }
 
                 // Mostrar los datos actualizados en el DataGridView
-                //MostrarDatosEnGrilla();
+                MostrarDatosEnGrilla();
             }
             catch (Exception ex)
             {

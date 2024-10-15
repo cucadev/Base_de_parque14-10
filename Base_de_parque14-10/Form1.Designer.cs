@@ -192,6 +192,7 @@
             this.Fin});
             this.dataGridView1.Location = new System.Drawing.Point(291, 91);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(742, 202);
             this.dataGridView1.TabIndex = 15;
             // 
@@ -258,7 +259,7 @@
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
             // 
-            // frm1
+            // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -282,7 +283,7 @@
             this.Controls.Add(this.lblEmpleado);
             this.Controls.Add(this.txtIncidente);
             this.Controls.Add(this.lblIncidente);
-            this.Name = "frm1";
+            this.Name = "Form1";
             this.Text = "Monitoreo";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
