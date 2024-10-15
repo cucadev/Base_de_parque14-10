@@ -1,4 +1,4 @@
-﻿namespace Restaurant
+﻿namespace Base_de_parque14_10
 {
     partial class Form1
     {
@@ -258,7 +258,7 @@
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // frm1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -282,8 +282,8 @@
             this.Controls.Add(this.lblEmpleado);
             this.Controls.Add(this.txtIncidente);
             this.Controls.Add(this.lblIncidente);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "frm1";
+            this.Text = "Monitoreo";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -14,7 +14,7 @@ using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
 using Mysqlx.Cursor;
 
-namespace Restaurant
+namespace Base_de_parque14_10
 {
     public partial class Form1 : Form
     {
@@ -143,7 +143,7 @@ namespace Restaurant
                             adapter.Fill(dataTable);
 
                             // Asignar el DataTable al DataGridView
-                            dataGridView1.DataSource = dataTable;
+                            //dataGridView1.DataSource = dataTable;
                         }
                     }
                 }
@@ -189,9 +189,9 @@ namespace Restaurant
                             {
                                 MessageBox.Show("Fila eliminada correctamente.");
                                 MostrarDatosEnGrilla();
-                                // Actualizar el DataGridView después de eliminar
-                                // Asegúrate de que tengas un adapter y una dataTable configurados correctamente
-                                // adapter.Fill(dataTable);
+                                //Actualizar el DataGridView después de eliminar
+                                //Asegúrate de que tengas un adapter y una dataTable configurados correctamente
+                                //adapter.Fill(dataTable);
                             }
                             else
                             {
@@ -287,7 +287,7 @@ namespace Restaurant
                 }
 
                 // Mostrar los datos actualizados en el DataGridView
-                MostrarDatosEnGrilla();
+                //MostrarDatosEnGrilla();
             }
             catch (Exception ex)
             {
