@@ -21,7 +21,7 @@ namespace Base_de_parque14_10
         public Form1()
         {
             InitializeComponent();
-            MostrarDatosEnGrilla();
+            CargarDatosData();
         }
         public class Monitoreo
         {
@@ -120,49 +120,60 @@ namespace Base_de_parque14_10
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-            MostrarDatosEnGrilla();
-
+           
         }
-        private void MostrarDatosEnGrilla()
-        {
-            try
-            {
-                // Cadena de conexión a la base de datos MySQL
-                string connectionString = "Server=localhost;Database=base_de_parque;Uid=root;Pwd=";
 
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+        private void CargarDatosData()
+        {
+            // Cadena de conexión a la base de datos
+            string connectionString = "server=localhost;database=base_de_parque;uid=root;pwd=";
+
+            // Consulta SQL para obtener los datos de la tabla visitante
+            string query = "SELECT Incidente, Empleado, Zona, Tipo, Fecha, Inicio, Fin FROM monitoreo";
+
+            // Limpiar las filas actuales del DataGridView
+            dataGridView1.Rows.Clear();
+
+            // Crear la conexión a la base de datos
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
                 {
+                    // Abrir la conexión
                     connection.Open();
 
-                    string query = "SELECT Incidente, Empleado, Zona, Tipo, Fecha, Inicio, Fin FROM monitoreo";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
-                        {
-                            DataTable dataTable = new DataTable();
-                            adapter.Fill(dataTable);
+                    // Crear el comando para ejecutar la consulta
+                    MySqlCommand command = new MySqlCommand(query, connection);
 
-                            // Asignar el DataTable al DataGridView
-                            //dataGridView1.DataSource = dataTable;
+                    // Ejecutar la consulta y obtener los resultados
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Leer los datos y agregarlos al DataGridView
+                        while (reader.Read())
+                        {
+                            dataGridView1.Rows.Add(
+                                reader["Incidente"].ToString(),
+                                reader["Empleado"].ToString(),
+                                reader["Zona"].ToString(),
+                                reader["Tipo"].ToString(),
+                                reader["Fecha"].ToString(),
+                                reader["Inicio"].ToString(),
+                                reader["Fin"].ToString()
+                            );
                         }
                     }
+
+                    MessageBox.Show("Datos cargados correctamente.");
+                    
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al cargar los datos: " + ex.Message);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar los datos: " + ex.Message);
-            }
-        }
-        private void btnEvento_Click(object sender, EventArgs e)
-        {
-            Form1 frmEvento = new Form1();
-            frmEvento.Show();
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
         }
+
         private void Eliminar()
         {
             try
@@ -189,7 +200,8 @@ namespace Base_de_parque14_10
                             if (rowsAffected > 0)
                             {
                                 MessageBox.Show("Fila eliminada correctamente.");
-                                MostrarDatosEnGrilla();
+                                //funcion
+                                CargarDatosData();
                                 //Actualizar el DataGridView después de eliminar
                                 //Asegúrate de que tengas un adapter y una dataTable configurados correctamente
                                 //adapter.Fill(dataTable);
@@ -288,7 +300,9 @@ namespace Base_de_parque14_10
                 }
 
                 // Mostrar los datos actualizados en el DataGridView
-                MostrarDatosEnGrilla();
+                //funcion
+                CargarDatosData();
+
             }
             catch (Exception ex)
             {
@@ -296,5 +310,6 @@ namespace Base_de_parque14_10
             }
         }
     }
+    
 }
 
